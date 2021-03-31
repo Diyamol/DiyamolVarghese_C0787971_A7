@@ -45,7 +45,7 @@ public class BankingProgram {
                 else
                 {JOptionPane.showMessageDialog(null, "Balance is "+bal);
 
-                    file.append("\nUsername:"+name+" \nDebit Amount: $"+credit+"\nCurrent Balance: $"+bal);
+                    file.append("\nUsername:"+name+" \nDeposit Amount: $"+credit+"\nCurrent Balance: $"+bal);
                     file.close();
                     JOptionPane.showMessageDialog(null,"Successfully wrote to the file.");}
 
