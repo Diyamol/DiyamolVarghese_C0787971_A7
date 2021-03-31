@@ -17,15 +17,20 @@ public class BankingProgram {
         BankingDetails bank=new BankingDetails();
         FileWriter file = new FileWriter("Banking.txt",true);
         try {
-            int choice =Integer.parseInt(JOptionPane.showInputDialog("Select:\n1.Debit\n2.Credit\n3.Show Balance"));
+            int choice =Integer.parseInt(JOptionPane.showInputDialog("Select:\n1.Cash Deposit\n2.Cas Withdrawal\n3.Check Balance"));
             double bal=0;
             if (choice==1){
-                double debitAmount=Double.parseDouble(JOptionPane.showInputDialog("Enter Debit Amount: "));
+                double debitAmount=Double.parseDouble(JOptionPane.showInputDialog("Enter Amount: "));
                 bal=bank.newBalance(name, password, debitAmount);
-                if(bal==0.0)
-                    JOptionPane.showMessageDialog(null, "Wrong Credentials!");
+                if(bal==-1){
+                    JOptionPane.showMessageDialog(null, "You entered wrong credentials!");
+                }
+                else if(bal==0.0 || bal==-2){
+                    JOptionPane.showMessageDialog(null, "You don't have enough balance!");
+                }
                 else
-                {JOptionPane.showMessageDialog(null, "Balance is $"+bal);
+                {
+                    JOptionPane.showMessageDialog(null, "Balance is $"+bal);
 
                     file.append("\nUsername:"+name+" \nDebit Amount: $"+debitAmount+"\nCurrent Balance: $"+bal);
                     file.close();
@@ -34,9 +39,9 @@ public class BankingProgram {
             }
             else if(choice==2) {
                 double credit=Double.parseDouble(JOptionPane.showInputDialog("Enter Credit Amount: "));
-                double bal=bank.credit(name, password, credit);
+                bal=bank.balance(name, password, credit);
                 if(bal==0.0)
-                    JOptionPane.showMessageDialog(null, "Wrong Credentials!");
+                    JOptionPane.showMessageDialog(null, "You entered wrong credentials!");
                 else
                 {JOptionPane.showMessageDialog(null, "Balance is "+bal);
 
@@ -48,7 +53,7 @@ public class BankingProgram {
             }
             else if(choice==3) {
                 double amt=bank.newBalance(name,password,bal);
-                if(amt==0.0)
+                if(amt==0.0|| amt==-1)
                     JOptionPane.showMessageDialog(null, "Wrong Credentials!");
                 else
                     JOptionPane.showMessageDialog(null, "Balance is "+amt);
